@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年2月 日本親子包車行程</title>
+    
+    <!-- 引入 Tailwind CSS (樣式庫) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 引入 React 核心 -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- 引入 Babel (讓瀏覽器看不懂的 JSX 變成看得懂的 JS) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        /* 優化捲動體驗 */
+        html { scroll-behavior: smooth; }
+        body { background-color: #f3f4f6; -webkit-font-smoothing: antialiased; }
+        
+        /* 自定義捲動定位點，避免標題被遮擋 */
+        .scroll-mt-24 { scroll-margin-top: 6rem; }
+        
+        /* 地圖路徑動畫 */
+        @keyframes dash {
+            to { stroke-dashoffset: 0; }
+        }
+        .animate-dash {
+            stroke-dasharray: 8 4;
+            stroke-dashoffset: 1000;
+            animation: dash 25s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useRef, useEffect } = React;
+
+        // --- 1. SVG Icon Components (手動定義圖示以確保單一檔案運行) ---
+        const Icon = ({ size = 20, className = "", children }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{children}</svg>
+        );
+
+        const Plane = (p) => <Icon {...p}><path d="M2 22h20"/><path d="M13 6l-7 1.5 1 5.5 8-1 1.5-6.5L13 6z"/><path d="M2 22L13 6"/></Icon>;
+        const Bus = (p) => <Icon {...p}><rect x="3" y="6" width="18" height="16" rx="2"/><path d="M5 21v2"/><path d="M19 21v2"/><path d="M3 11h18"/><path d="M3 6l1.5-3h15L21 6"/></Icon>;
+        const MapPin = (p) => <Icon {...p}><path d="M20 10c0 6-9 13-9 13s-9-7-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></Icon>;
+        const Snowflake = (p) => <Icon {...p}><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/><path d="M20 16l-4-4 4-4"/><path d="M4 8l4 4-4 4"/><path d="M16 4l-4 4-4-4"/><path d="M8 20l4-4 4 4"/></Icon>;
+        const Camera = (p) => <Icon {...p}><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></Icon>;
+        const ShoppingBag = (p) => <Icon {...p}><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></Icon>;
+        const Users = (p) => <Icon {...p}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></Icon>;
+        const Baby = (p) => <Icon {...p}><circle cx="12" cy="12" r="10"/><path d="M8 15h8"/><path d="M9 9h.01"/><path d="M15 9h.01"/></Icon>;
+        const MapIcon = (p) => <Icon {...p}><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></Icon>;
+        const ExternalLink = (p) => <Icon {...p}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></Icon>;
+        const Clock = (p) => <Icon {...p}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></Icon>;
+        const BedDouble = (p) => <Icon {...p}><path d="M2 20v-8h20v8"/><path d="M2 8h20"/><path d="M2 4v16"/><path d="M22 4v16"/></Icon>;
+
+        // --- 2. 子元件 (Badge, DayCard, MapPoint, Hotel) ---
+        
+        const Badge = ({ icon, text, highlight }) => (
+            <div className={`flex items-center px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm ${highlight ? 'bg-yellow-400 text-blue-900 shadow-md' : 'bg-white/20 text-white'}`}>
+                <span className="mr-1.5">{icon}</span> {text}
+            </div>
+        );
+
+        const CommuteTime = ({ time }) => (
+            <div className="flex items-center text-xs font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded inline-block mb-1 border border-amber-100">
+                <Clock size={12} className="mr-1" />
+                {time}
+            </div>
+        );
+
+        const DayCard = ({ day, title, loc, icon, color, children, forwardRef }) => (
+            <div ref={forwardRef} className="flex mb-5 last:mb-0 scroll-mt-24">
+                <div className="flex flex-col items-center mr-4">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white shadow-md z-10 ${color}`}>
+                        {React.cloneElement(icon, { size: 18 })}
+                    </div>
+                    <div className="w-0.5 h-full bg-gray-200 mt-2 rounded-full"></div>
+                </div>
+                <div className="flex-1 pb-2">
+                    <div className="flex items-center justify-between mb-1">
+                        <h3 className="font-bold text-gray-800 text-lg">{title} <span className="text-xs font-normal text-gray-500 ml-2">({day})</span></h3>
+                    </div>
+                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center">
+                        <MapPin size={10} className="mr-1"/> {loc}
+                    </div>
+                    <div className="bg-white rounded-lg border border-gray-100 p-3 shadow-sm hover:shadow-md transition-shadow">
+                        {children}
+                    </div>
+                </div>
+            </div>
+        );
+
+        const MapPoint = ({ x, y, label, color = "text-gray-600", type, isSnow, align, size, onClick }) => {
+            const isLarge = size === 'large';
+            return (
+                <g transform={`translate(${x}, ${y})`} onClick={onClick} className="cursor-pointer group">
+                    <circle cx="0" cy="0" r={isLarge ? 12 : 8} fill="transparent" className="group-hover:fill-black/5 transition-colors" />
+                    <circle cx="0" cy="0" r={isLarge ? 6 : 4} fill="white" stroke="currentColor" strokeWidth="2" className={`${color} transition-transform group-hover:scale-125`} />
+                    {type === 'start' && (
+                        <circle cx="0" cy="0" r="8" stroke="currentColor" strokeWidth="1" className="text-gray-400 opacity-50 animate-ping" />
+                    )}
+                    {isSnow && (
+                        <text x="0" y="-10" textAnchor="middle" className="text-blue-300" fontSize="10">❄️</text>
+                    )}
+                    <text 
+                        x={align === 'right' ? 10 : 0} 
+                        y={align === 'right' ? 4 : 18} 
+                        textAnchor={align === 'right' ? "start" : "middle"} 
+                        className={`text-[10px] md:text-xs font-bold fill-current ${color} drop-shadow-sm select-none group-hover:font-extrabold`}
+                        style={{ textShadow: '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff' }}
+                    >
+                        {label}
+                    </text>
+                </g>
+            )
+        };
+
+        const HotelGroup = ({ city, color, children }) => (
+            <div className={`bg-white rounded-xl shadow-sm border-t-4 ${color} p-4`}>
+                <h3 className="font-bold text-gray-800 mb-3 border-b border-gray-100 pb-2">{city}</h3>
+                <div className="space-y-4">
+                    {children}
+                </div>
+            </div>
+        );
+
+        const HotelItem = ({ name, desc, tags }) => (
+            <div>
+                <h4 className="font-bold text-sm text-gray-700">{name}</h4>
+                <p className="text-xs text-gray-500 mt-1 leading-relaxed">{desc}</p>
+                <div className="flex flex-wrap gap-1 mt-1.5">
+                    {tags.map((tag, i) => (
+                        <span key={i} className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded">
+                            {tag}
+                        </span>
+                    ))}
+                </div>
+            </div>
+        );
+
+        // --- 3. 主要應用程式元件 ---
+        const App = () => {
+            const googleMapsUrl = "https://www.google.com/maps/dir/Chubu+Centrair+International+Airport/Nagoya,+Aichi/Takayama,+Gifu/Shirakawa,+Ono+District,+Gifu/Kyoto/Kansai+International+Airport/";
+
+            // 建立 Refs 以便點擊地圖時捲動
+            const refs = {
+                day1: useRef(null),
+                day2: useRef(null),
+                day3: useRef(null),
+                day4: useRef(null),
+                day5: useRef(null),
+                day6: useRef(null),
+                day7: useRef(null),
+            };
+
+            const scrollToDay = (dayKey) => {
+                if (refs[dayKey] && refs[dayKey].current) {
+                    refs[dayKey].current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            };
+
+            return (
+                <div className="min-h-screen bg-gray-100 p-4 md:p-8 font-sans max-w-4xl mx-auto">
+                    <div className="bg-white shadow-2xl rounded-2xl overflow-hidden border border-gray-200">
+                        
+                        {/* Header */}
+                        <div className="bg-gradient-to-r from-blue-800 to-blue-600 text-white p-8 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 opacity-10 transform translate-x-10 -translate-y-10">
+                                <Snowflake size={200} />
+                            </div>
+                            <h1 className="text-2xl md:text-4xl font-bold mb-2 tracking-wide relative z-10">昇龍道 ⇄ 關西 慢遊雪見行</h1>
+                            <p className="text-blue-100 text-lg mb-6 relative z-10">2026年2月｜8大3小包車｜修正版行程</p>
+                            
+                            <div className="flex flex-wrap gap-2 relative z-10">
+                                <Badge icon={<Users size={14}/>} text="11人家族" />
+                                <Badge icon={<Bus size={14}/>} text="全程包車" highlight />
+                                <Badge icon={<Clock size={14}/>} text="含通勤時間" />
+                            </div>
+                        </div>
+
+                        {/* Map Section */}
+                        <div className="bg-slate-50 p-6 border-b border-gray-200">
+                            <div className="flex items-center justify-between mb-4">
+                                <h2 className="text-xl font-bold text-gray-800 flex items-center">
+                                    <MapIcon className="mr-2 text-blue-600" /> 行程地圖
+                                </h2>
+                                <a 
+                                    href={googleMapsUrl} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="flex items-center text-sm bg-white border border-gray-300 text-blue-600 px-3 py-1.5 rounded-full hover:bg-blue-50 transition-colors shadow-sm cursor-pointer no-underline"
+                                >
+                                    <ExternalLink size={14} className="mr-1" /> Google Maps
+                                </a>
+                            </div>
+                            
+                            <div className="w-full bg-white rounded-xl shadow-inner border border-gray-200 p-4 relative h-64 md:h-80 overflow-hidden select-none">
+                                <div className="absolute inset-0 opacity-5" style={{backgroundImage: 'radial-gradient(#e5e7eb 1px, transparent 1px)', backgroundSize: '16px 16px'}}></div>
+                                
+                                <svg viewBox="0 0 400 300" className="w-full h-full">
+                                    {/* 背景路徑 */}
+                                    <path d="M 320 250 L 320 200 L 300 100 L 220 50 L 300 100 L 120 180 L 80 240" 
+                                        fill="none" stroke="#cbd5e1" strokeWidth="4" strokeDasharray="8 4" strokeLinecap="round" strokeLinejoin="round" />
+                                    
+                                    {/* 動畫路徑 */}
+                                    <path d="M 320 250 L 320 200 L 300 100 L 220 50 L 300 100 L 120 180 L 80 240" 
+                                        fill="none" stroke="#3b82f6" strokeWidth="2" className="animate-dash" strokeLinecap="round" strokeLinejoin="round" />
+
+                                    {/* 互動點 */}
+                                    <MapPoint x={320} y={250} label="名古屋機場" type="start" onClick={() => scrollToDay('day1')} />
+                                    <MapPoint x={320} y={200} label="Day1-2 名古屋" color="text-blue-600" onClick={() => scrollToDay('day1')} />
+                                    <MapPoint x={300} y={100} label="Day3-4 高山" color="text-cyan-600" align="right" onClick={() => scrollToDay('day3')} />
+                                    <MapPoint x={220} y={50} label="Day4 白川鄉" color="text-indigo-600" isSnow onClick={() => scrollToDay('day4')} />
+                                    <MapPoint x={120} y={180} label="Day5-6 京都" color="text-rose-600" size="large" onClick={() => scrollToDay('day5')} />
+                                    <MapPoint x={80} y={240} label="Day7 關西機場" color="text-slate-600" onClick={() => scrollToDay('day7')} />
+                                </svg>
+                                <div className="absolute bottom-2 right-2 text-xs text-gray-400 bg-white/80 px-2 py-1 rounded pointer-events-none">
+                                    *點擊圓點查看詳情
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Itinerary Body */}
+                        <div className="p-6 md:p-8 bg-white">
+                            
+                            <DayCard forwardRef={refs.day1} day="Day 1" title="抵達名古屋" loc="台北 ✈️ 名古屋" icon={<Plane/>} color="bg-blue-500">
+                                <CommuteTime time="機場 → 市區：約 45 分鐘" />
+                                <ul className="text-sm text-gray-700 list-disc ml-5 space-y-1 mt-2">
+                                    <li>接機，前往飯店辦理入住</li>
+                                    <li>晚餐：<strong>蓬萊軒鰻魚飯</strong> (建議預約)</li>
+                                    <li>住宿：<strong>名古屋市區</strong></li>
+                                </ul>
+                            </DayCard>
+
+                            <DayCard forwardRef={refs.day2} day="Day 2" title="名古屋親子遊" loc="名古屋市區" icon={<Baby/>} color="bg-blue-400">
+                                <CommuteTime time="市區內短程移動" />
+                                <ul className="text-sm text-gray-700 list-disc ml-5 space-y-1 mt-2">
+                                    <li>推薦 A：<strong>名古屋港水族館</strong> (室內，適合冬天親子)</li>
+                                    <li>推薦 B：<strong>樂高樂園</strong> 或 <strong>豐田產業技術紀念館</strong></li>
+                                    <li>晚上：榮商圈 / 綠洲21 散步</li>
+                                    <li>住宿：<strong>名古屋市區 (續住)</strong> <span className="text-xs text-gray-500">- 免搬行李</span></li>
+                                </ul>
+                            </DayCard>
+
+                            <DayCard forwardRef={refs.day3} day="Day 3" title="前往飛驒高山" loc="名古屋 ➔ 高山" icon={<Bus/>} color="bg-cyan-500">
+                                <CommuteTime time="移動時間：約 2.5 ~ 3 小時" />
+                                <ul className="text-sm text-gray-700 list-disc ml-5 space-y-1 mt-2">
+                                    <li>上午：專車北上，沿途欣賞雪景</li>
+                                    <li>中午：抵達高山，品嚐<strong>飛驒牛午餐</strong></li>
+                                    <li>下午：<strong>高山三町筋古街</strong>散策</li>
+                                    <li>住宿：<strong>高山周邊或溫泉飯店</strong></li>
+                                </ul>
+                            </DayCard>
+
+                            <DayCard forwardRef={refs.day4} day="Day 4" title="白川鄉合掌村 (輕裝往返)" loc="高山 ⇄ 白川鄉" icon={<Snowflake/>} color="bg-indigo-500">
+                                <CommuteTime time="單程約 50 分鐘 (往返約 2 小時)" />
+                                <ul className="text-sm text-gray-700 list-disc ml-5 space-y-1 mt-2">
+                                    <li>上午：前往<strong>宮川朝市</strong> (就在高山市區)</li>
+                                    <li>中午：出發前往<strong>白川鄉合掌村</strong> (停留約 3-4 小時)</li>
+                                    <li>傍晚：返回高山市區晚餐</li>
+                                    <li>住宿：<strong>高山 (續住)</strong> <span className="text-xs text-gray-500">- 晚上可好好泡溫泉</span></li>
+                                </ul>
+                            </DayCard>
+
+                            <DayCard forwardRef={refs.day5} day="Day 5" title="大移動日：前往京都" loc="高山 ➔ 京都" icon={<Bus/>} color="bg-rose-500">
+                                <CommuteTime time="移動時間：約 4 小時 (中途停休息站)" />
+                                <ul className="text-sm text-gray-700 list-disc ml-5 space-y-1 mt-2">
+                                    <li>上午：悠閒早餐，退房出發</li>
+                                    <li>午餐：<strong>高速公路休息站</strong> (日本休息站美食)</li>
+                                    <li>下午：抵達京都，先放行李</li>
+                                    <li>傍晚：<strong>祇園 / 花見小路</strong> 散步</li>
+                                    <li>住宿：<strong>京都車站或四條周邊</strong></li>
+                                </ul>
+                            </DayCard>
+
+                            <DayCard forwardRef={refs.day6} day="Day 6" title="京都經典巡禮" loc="京都市區" icon={<Camera/>} color="bg-rose-400">
+                                <CommuteTime time="市區內短程移動" />
+                                <ul className="text-sm text-gray-700 list-disc ml-5 space-y-1 mt-2">
+                                    <li>上午：<strong>清水寺</strong> (經典) 或 <strong>金閣寺</strong> (平坦)</li>
+                                    <li>下午：<strong>嵐山</strong> (竹林之道、渡月橋)</li>
+                                    <li>晚餐：京都懷石料理</li>
+                                    <li>住宿：<strong>京都 (續住)</strong></li>
+                                </ul>
+                            </DayCard>
+
+                            <DayCard forwardRef={refs.day7} day="Day 7" title="京都出發 & 返台" loc="京都 ➔ 關西機場" icon={<Plane/>} color="bg-slate-600">
+                                <CommuteTime time="京都 → 機場：約 1.5 ~ 2 小時" />
+                                <ul className="text-sm text-gray-700 list-disc ml-5 space-y-1 mt-2">
+                                    <li>上午：整理行李，車上休息</li>
+                                    <li>中途：可停 <strong>Rinku Outlet</strong> (臨空城) 最後購物</li>
+                                    <li>下午：抵達<strong>關西國際機場 (KIX)</strong></li>
+                                    <li>航班：大阪 ✈️ 台北</li>
+                                </ul>
+                            </DayCard>
+
+                        </div>
+
+                        {/* Hotel Recommendations */}
+                        <div className="bg-slate-50 p-6 md:p-8 border-t border-gray-200">
+                            <h2 className="text-xl font-bold text-gray-800 flex items-center mb-6">
+                                <BedDouble className="mr-2 text-amber-500" /> 嚴選高級住宿推薦
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <HotelGroup city="名古屋 Nagoya" color="border-blue-500">
+                                    <HotelItem name="Nagoya Marriott Associa" desc="位置No.1，直通車站，五星級" tags={['便利']} />
+                                    <HotelItem name="TIAD, Autograph Collection" desc="2023新開幕，設計奢華" tags={['新地標']} />
+                                    <HotelItem name="The Tower Hotel" desc="位於電視塔內" tags={['特色']} />
+                                </HotelGroup>
+                                <HotelGroup city="高山 Takayama" color="border-cyan-500">
+                                    <HotelItem name="飛驒亭 花扇" desc="頂級溫泉，全館塌塌米" tags={['高級溫泉']} />
+                                    <HotelItem name="本陣平野屋 花兆庵" desc="老街旁，服務極致" tags={['服務好']} />
+                                    <HotelItem name="Associa Takayama Resort" desc="山丘渡假風，有大浴場" tags={['景觀佳']} />
+                                </HotelGroup>
+                                <HotelGroup city="京都 Kyoto" color="border-rose-500">
+                                    <HotelItem name="Ritz-Carlton Kyoto" desc="鴨川畔頂級體驗" tags={['奢華']} />
+                                    <HotelItem name="Park Hyatt Kyoto" desc="二年坂旁，低調絕景" tags={['隱密']} />
+                                    <HotelItem name="Hotel The Mitsui" desc="二條城對面，有天然溫泉" tags={['溫泉']} />
+                                </HotelGroup>
+                            </div>
+                            <p className="text-xs text-gray-500 mt-4 text-center">* 建議提前 5-6 個月預訂</p>
+                        </div>
+
+                        <div className="bg-gray-800 text-gray-400 p-4 text-center text-xs">
+                            2026年2月 行程規劃草案
+                        </div>
+
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
+
