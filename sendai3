@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 山形．藏王樹冰 奢華藝術之旅</title>
+    <!-- 引入 Google Fonts: Noto Serif TC (襯線體) 為主，營造高級感 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <!-- 引入 Tailwind CSS 進行快速排版 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#C5A059',
+                        navy: '#0F172A',
+                        snow: '#F9FAFB',
+                        charcoal: '#333333',
+                        slate: '#334155'
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif TC"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Serif TC', serif; /* 全局使用襯線體 */
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* 隱藏滾動條但保持功能 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C5A059; 
+        }
+        
+        /* 針對 Details/Summary 的動畫優化 */
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details[open] summary ~ * {
+            animation: sweep .3s ease-in-out;
+        }
+        @keyframes sweep {
+            0%    {opacity: 0; transform: translateY(-10px)}
+            100%  {opacity: 1; transform: translateY(0)}
+        }
+    </style>
+</head>
+<body class="bg-snow text-charcoal antialiased selection:bg-gold selection:text-white">
+
+    <!-- Slide 1: Cover / Hero Section -->
+    <header class="relative h-screen w-full bg-navy flex items-center justify-center text-center px-4">
+        <div class="relative z-10 max-w-4xl animate-fade-in-up">
+            <p class="text-gold tracking-[0.3em] text-lg md:text-xl font-medium mb-4 uppercase">2026 Winter Exclusive</p>
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
+                山形．藏王樹冰<br>奢華藝術之旅
+            </h1>
+            <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
+            <p class="text-white text-xl md:text-2xl font-light tracking-widest text-shadow">
+                雪與藝術．名湯宿所
+            </p>
+        </div>
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 w-full text-center animate-bounce text-white opacity-70">
+            <span class="text-sm tracking-widest">SCROLL TO EXPLORE</span>
+            <div class="mt-2 text-2xl">↓</div>
+        </div>
+    </header>
+
+    <!-- Slide 1.5: Interactive Timeline (New Section) -->
+    <section class="py-20 bg-gray-50 reveal">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-navy mb-2">行程速覽</h2>
+                <p class="text-gold italic text-lg">Itinerary Overview</p>
+                <p class="text-xs text-gray-500 mt-2 font-sans tracking-wide">（點擊展開詳細內容 / Click to expand details）</p>
+            </div>
+
+            <div class="space-y-4">
+                
+                <!-- Day 1 & 2 Accordion -->
+                <details class="group bg-white shadow-md rounded-lg overflow-hidden border-l-4 border-navy">
+                    <summary class="flex justify-between items-center p-6 cursor-pointer hover:bg-gray-50 transition duration-300">
+                        <div class="flex items-center gap-5">
+                            <span class="font-serif text-3xl text-gold font-bold w-16">01-02</span>
+                            <div>
+                                <h4 class="font-bold text-navy text-xl">The Retreat | 深山莊 高見屋</h4>
+                                <p class="text-sm text-gray-400 font-sans mt-1">Zao Onsen - Mountain Sanctuary</p>
+                            </div>
+                        </div>
+                        <span class="text-navy transform group-open:rotate-180 transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 pt-2 text-gray-600 font-sans border-t border-gray-100 mx-6 mt-2">
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <div class="flex-1">
+                                <strong class="text-navy block mb-1">體驗重點</strong>
+                                <ul class="list-disc list-inside text-sm space-y-1 text-gray-600">
+                                    <li>搭乘纜車俯瞰壯闊「藏王樹冰」</li>
+                                    <li>體驗源泉掛流強酸性硫磺泉</li>
+                                    <li>品嚐頂級山形牛懷石料理</li>
+                                </ul>
+                            </div>
+                            <div class="flex-1 border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-4">
+                                <strong class="text-navy block mb-1">住宿特色</strong>
+                                <p class="text-sm leading-relaxed">創業三百年，皇室御用之宿。純日式木造建築，感受歲月沈澱的極致優雅。</p>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Day 3 Accordion -->
+                <details class="group bg-white shadow-md rounded-lg overflow-hidden border-l-4 border-gray-400">
+                    <summary class="flex justify-between items-center p-6 cursor-pointer hover:bg-gray-50 transition duration-300">
+                        <div class="flex items-center gap-5">
+                            <span class="font-serif text-3xl text-gray-400 font-bold w-16">03</span>
+                            <div>
+                                <h4 class="font-bold text-navy text-xl">Transfer Day | 藝術與移動</h4>
+                                <p class="text-sm text-gray-400 font-sans mt-1">Zao to Sendai - Cultural Journey</p>
+                            </div>
+                        </div>
+                        <span class="text-navy transform group-open:rotate-180 transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 pt-2 text-gray-600 font-sans border-t border-gray-100 mx-6 mt-2">
+                        <p class="mb-3 text-sm leading-relaxed">專車前往仙台，從深山秘境無縫轉換至都會奢華。途中安排藝術巡禮，沈澱心靈。</p>
+                        <strong class="text-navy block mb-1 text-sm">行程選項</strong>
+                        <div class="flex gap-2 flex-wrap text-xs font-bold text-gold">
+                            <span class="border border-gold px-2 py-1 rounded">山形美術館</span>
+                            <span class="border border-gold px-2 py-1 rounded">山寺</span>
+                            <span class="border border-gold px-2 py-1 rounded">廣重美術館</span>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Day 3 & 4 Accordion -->
+                <details class="group bg-white shadow-md rounded-lg overflow-hidden border-l-4 border-gold">
+                    <summary class="flex justify-between items-center p-6 cursor-pointer hover:bg-gray-50 transition duration-300">
+                        <div class="flex items-center gap-5">
+                            <span class="font-serif text-3xl text-gold font-bold w-16">03-04</span>
+                            <div>
+                                <h4 class="font-bold text-navy text-xl">The City | 仙台威斯汀</h4>
+                                <p class="text-sm text-gray-400 font-sans mt-1">Sendai City - Urban Luxury</p>
+                            </div>
+                        </div>
+                        <span class="text-navy transform group-open:rotate-180 transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 pt-2 text-gray-600 font-sans border-t border-gray-100 mx-6 mt-2">
+                         <div class="flex flex-col md:flex-row gap-4">
+                            <div class="flex-1">
+                                <strong class="text-navy block mb-1">體驗重點</strong>
+                                <ul class="list-disc list-inside text-sm space-y-1 text-gray-600">
+                                    <li>入住東北最高樓層，俯瞰仙台璀璨夜景</li>
+                                    <li>萬豪系奢華服務體驗</li>
+                                    <li>市中心購物與米其林餐飲</li>
+                                </ul>
+                            </div>
+                            <div class="flex-1 border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-4">
+                                <strong class="text-navy block mb-1">策略意義</strong>
+                                <p class="text-sm leading-relaxed">後段安排平地市區住宿，規避山區暴風雪封路風險，確保回程交通順暢無虞。</p>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Day 5 Accordion -->
+                <details class="group bg-white shadow-md rounded-lg overflow-hidden border-l-4 border-gray-400">
+                    <summary class="flex justify-between items-center p-6 cursor-pointer hover:bg-gray-50 transition duration-300">
+                        <div class="flex items-center gap-5">
+                            <span class="font-serif text-3xl text-gray-400 font-bold w-16">05</span>
+                            <div>
+                                <h4 class="font-bold text-navy text-xl">Departure | 賦歸</h4>
+                                <p class="text-sm text-gray-400 font-sans mt-1">Sendai Airport - Safe Return</p>
+                            </div>
+                        </div>
+                        <span class="text-navy transform group-open:rotate-180 transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 pt-2 text-gray-600 font-sans border-t border-gray-100 mx-6 mt-2">
+                        <p class="text-sm leading-relaxed">享用完飯店早餐後，專車輕鬆前往仙台機場，帶著滿滿的回憶與戰利品，平安賦歸。</p>
+                    </div>
+                </details>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 2: Concept -->
+    <section class="py-24 px-6 md:px-12 max-w-4xl mx-auto reveal">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-navy mb-4">從自然到城市：無縫轉換</h2>
+            <p class="text-gold italic text-xl">From Nature to Urban</p>
+        </div>
+        
+        <div class="bg-white p-10 shadow-xl border-t-4 border-gold">
+            <h3 class="text-2xl font-bold mb-8 text-navy text-center">極致流暢的旅行節奏</h3>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="flex flex-col items-center text-center">
+                    <span class="text-gold text-4xl mb-4 font-serif">01.</span>
+                    <strong class="block text-xl mb-2 text-navy">僅一次轉換飯店</strong>
+                    <p class="text-gray-600 font-sans leading-relaxed">大幅減少行李搬運與移動疲勞，將時間留給風景與體驗。</p>
+                </div>
+                <div class="flex flex-col items-center text-center">
+                    <span class="text-gold text-4xl mb-4 font-serif">02.</span>
+                    <strong class="block text-xl mb-2 text-navy">雙重極致體驗</strong>
+                    <p class="text-gray-600 font-sans leading-relaxed">前段沈浸於藏王深山秘境的靜謐，後段回歸仙台都會的奢華便利。</p>
+                </div>
+            </div>
+            <div class="mt-10 text-center border-t border-gray-100 pt-6">
+                 <p class="font-serif italic text-navy">"Less moving, more living."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Accommodation 1 (Zao) -->
+    <section class="bg-navy text-white py-24 reveal">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-gray-700 pb-6">
+                <div>
+                    <span class="text-gold tracking-widest uppercase text-sm block mb-2">The Retreat | Day 1 & 2</span>
+                    <h2 class="text-4xl md:text-5xl font-bold">深山莊 高見屋</h2>
+                    <p class="text-gray-400 mt-2 font-sans">Miyama-so Takamiya</p>
+                </div>
+                <div class="mt-6 md:mt-0 text-right">
+                    <p class="text-xl italic font-light">"創業三百年，皇室御用之宿"</p>
+                </div>
+            </div>
+
+            <!-- Features Grid (Text Cards) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <!-- Card 1 -->
+                <div class="bg-slate p-8 border border-gray-700 hover:border-gold transition duration-300 h-64 flex flex-col justify-center">
+                    <p class="text-gold font-bold text-xl mb-2">歷史底蘊</p>
+                    <p class="text-gray-300 font-sans leading-relaxed">純日式木造建築藝術，感受歲月沈澱的優雅。</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-slate p-8 border border-gray-700 hover:border-gold transition duration-300 h-64 flex flex-col justify-center">
+                    <p class="text-gold font-bold text-xl mb-2">極致湯泉</p>
+                    <p class="text-gray-300 font-sans leading-relaxed">擁有源泉掛流的強酸性硫磺泉，享受極致的「雪見風呂」。</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-slate p-8 border border-gray-700 hover:border-gold transition duration-300 h-64 flex flex-col justify-center">
+                    <p class="text-gold font-bold text-xl mb-2">頂級懷石</p>
+                    <p class="text-gray-300 font-sans leading-relaxed">品嚐山形牛與當季旬味，五感滿足的饗宴。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Activity (Snow Monsters) -->
+    <section class="py-24 bg-snow reveal">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="bg-white p-12 shadow-xl border-l-8 border-gold">
+                <span class="text-gold font-bold tracking-widest text-sm uppercase mb-2 block">Nature's Wonder</span>
+                <h2 class="text-4xl font-bold text-navy mb-8">藏王樹冰 Juhyo</h2>
+                
+                <div class="space-y-8">
+                    <div>
+                        <h4 class="text-xl font-bold text-navy border-b border-gray-200 pb-2 mb-3">交通方式</h4>
+                        <p class="text-gray-600 font-sans">搭乘藏王空中纜車（Zao Ropeway）直達地藏山頂站，在空中俯瞰銀白世界。</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-xl font-bold text-navy border-b border-gray-200 pb-2 mb-3">Day View</h4>
+                            <p class="text-gray-600 font-sans">360度欣賞整片銀白雪怪（Snow Monsters）的壯闊，藍天與白雪的強烈對比。</p>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-navy border-b border-gray-200 pb-2 mb-3">Night View</h4>
+                            <p class="text-gray-600 font-sans">期間限定「樹冰點燈」，體驗色彩魔幻的異世界氛圍，如夢似幻。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Accommodation 2 (Sendai) -->
+    <section class="py-24 px-6 bg-white reveal">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-navy text-white p-12 md:p-16 shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-gold opacity-10 rounded-bl-full"></div>
+                
+                <div class="relative z-10 text-center mb-10">
+                    <span class="text-gold tracking-widest uppercase text-sm block mb-2">The Urban Luxury | Day 3 & 4</span>
+                    <h2 class="text-4xl font-bold mb-2">仙台威斯汀</h2>
+                    <h3 class="text-xl text-gray-400 font-sans">The Westin Sendai</h3>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-gold text-navy rounded-full flex items-center justify-center font-bold mx-auto mb-4">01</div>
+                        <h4 class="font-bold text-lg mb-2">雲端視野</h4>
+                        <p class="text-sm text-gray-400 font-sans">東北最高樓層，客房內盡覽璀璨夜景。</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-gold text-navy rounded-full flex items-center justify-center font-bold mx-auto mb-4">02</div>
+                        <h4 class="font-bold text-lg mb-2">國際規格</h4>
+                        <p class="text-sm text-gray-400 font-sans">萬豪奢華品牌，保證高服務品質。</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-gold text-navy rounded-full flex items-center justify-center font-bold mx-auto mb-4">03</div>
+                        <h4 class="font-bold text-lg mb-2">絕佳位置</h4>
+                        <p class="text-sm text-gray-400 font-sans">完美銜接休憩與購物需求。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Art & Options -->
+    <section class="py-24 px-6 bg-snow reveal">
+        <div class="max-w-6xl mx-auto">
+           
+            <!-- Art Museum -->
+            <div class="mb-20 text-center">
+                <span class="text-gold text-lg italic mb-2 block">Day 3 Highlight</span>
+                <h2 class="text-4xl font-bold text-navy mb-8">人文巡禮：山形美術館</h2>
+                <div class="bg-white p-8 shadow-lg max-w-4xl mx-auto border border-gray-100">
+                    <p class="text-lg leading-relaxed text-gray-700 mb-10">
+                        「與藝術獨處的奢華時光。」<br>
+                        館內珍藏<span class="text-gold font-bold">莫內</span>、<span class="text-gold font-bold">新海竹太郎</span>等大師真跡，以及長谷川祐子收藏品。
+                        在這裡，您可以避開都會美術館的擁擠，靜心感受藝術的溫度。
+                    </p>
+                   
+                    <!-- Added Representative Works with Images -->
+                    <div class="border-t border-gray-200 pt-10">
+                        <h4 class="text-gold font-bold mb-8 text-sm uppercase tracking-widest">Masterpiece Highlights 館藏精選</h4>
+                       
+                        <div class="grid md:grid-cols-2 gap-10 text-left">
+                           
+                            <!-- Work 1: Claude Monet -->
+                            <div class="group">
+                                <div class="overflow-hidden mb-5 border border-gray-200 shadow-md">
+                                    <img src="https://d33y0z4ooepzrm.cloudfront.net/images/ac010800abad97ca5905676849ee2961e4d49d1f/fullscreen/ac010800abad97ca5905676849ee2961e4d49d1f.jpg" 
+                                         alt="Claude Monet Water Lilies" 
+                                         class="w-full h-64 object-cover transform transition duration-700 group-hover:scale-105">
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="text-gold text-2xl mr-3 font-serif">I.</span>
+                                    <div>
+                                        <strong class="block text-navy text-lg font-serif">Claude Monet</strong>
+                                        <span class="text-gray-500 font-sans text-sm block mb-1">克勞德·莫內</span>
+                                        <span class="text-gray-800 font-serif italic border-b border-gold/30 pb-1 inline-block">睡蓮</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Work 2: Taketaro Shinkai -->
+                            <div class="group">
+                                <div class="overflow-hidden mb-5 border border-gray-200 shadow-md">
+                                    <!-- Using Wikimedia Commons image for Taketaro Shinkai's "Bathing" -->
+                                    <img src="http://www.yamagata-art-museum.or.jp/wp-content/uploads/2014/05/003_main1.jpg" 
+                                         alt="Taketaro Shinkai Bathing" 
+                                         class="w-full h-64 object-cover object-top transform transition duration-700 group-hover:scale-105">
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="text-gold text-2xl mr-3 font-serif">II.</span>
+                                    <div>
+                                        <strong class="block text-navy text-lg font-serif">Taketaro Shinkai</strong>
+                                        <span class="text-gray-500 font-sans text-sm block mb-1">新海竹太郎</span>
+                                        <span class="text-gray-800 font-serif italic border-b border-gold/30 pb-1 inline-block">沐浴</span>
+                                        <p class="text-xs text-gray-400 mt-2">1907年 銅像 (重要文化財)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Options -->
+            <h3 class="text-2xl font-bold text-navy text-center mb-10 border-t border-gray-300 pt-10">選配行程 (Options)</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Option A -->
+                <div class="bg-white p-6 shadow-md hover:shadow-xl transition duration-300 border-t-2 border-navy">
+                    <h4 class="text-xl font-bold text-navy mb-2">A. 歷史名勝 - 山寺</h4>
+                    <p class="text-sm text-gold font-bold mb-4 uppercase">Scenic History</p>
+                    <p class="text-gray-600 text-sm font-sans mb-4">冬季五大堂望出的景色如水墨畫般絕美。松尾芭蕉筆下的寂靜之地。</p>
+                    <p class="text-xs text-gray-400 border-t pt-2 mt-auto">Note: 階梯較多，需視體力安排。</p>
+                </div>
+                
+                <!-- Option B -->
+                <div class="bg-white p-6 shadow-md hover:shadow-xl transition duration-300 border-t-2 border-navy">
+                    <h4 class="text-xl font-bold text-navy mb-2">B. 廣重美術館</h4>
+                    <p class="text-sm text-gold font-bold mb-4 uppercase">Ukiyo-e Art</p>
+                    <p class="text-gray-600 text-sm font-sans mb-4">位於天童市，館藏豐富的歌川廣重浮世繪作品。適合喜愛江戶藝術的雅士。</p>
+                </div>
+
+                <!-- Option C -->
+                <div class="bg-white p-6 shadow-md hover:shadow-xl transition duration-300 border-t-2 border-navy">
+                    <h4 class="text-xl font-bold text-navy mb-2">C. 銀山溫泉</h4>
+                    <p class="text-sm text-gold font-bold mb-4 uppercase">Taisho Romance</p>
+                    <p class="text-gray-600 text-sm font-sans mb-4">充滿大正浪漫風情的溫泉街，雪夜與瓦斯燈交織的夢幻景致。</p>
+                    <p class="text-xs text-gray-400 border-t pt-2 mt-auto">Note: 需提前預約車輛許可。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Timeline & Risk Management (Original) -->
+    <section class="py-24 px-6 bg-navy text-white reveal">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-12">
+           
+            <!-- Timeline -->
+            <div class="md:col-span-2">
+                <h2 class="text-3xl font-bold mb-10 text-gold">行程總覽 Timeline</h2>
+                <div class="space-y-8 border-l border-gray-600 pl-8 relative">
+                    
+                    <div class="relative">
+                        <span class="absolute -left-[41px] top-1 h-5 w-5 rounded-full bg-gold border-4 border-navy"></span>
+                        <h4 class="text-xl font-bold">Day 1 & 2: The Retreat</h4>
+                        <p class="text-gray-400 text-sm mb-1">Stay: 深山莊 高見屋 (Zao Onsen)</p>
+                        <p class="font-sans text-gray-300">樹冰巡禮、溫泉療癒、極致懷石。</p>
+                    </div>
+
+                    <div class="relative">
+                        <span class="absolute -left-[41px] top-1 h-5 w-5 rounded-full bg-gray-500 border-4 border-navy"></span>
+                        <h4 class="text-xl font-bold">Day 3: Transfer Day</h4>
+                        <p class="text-gray-400 text-sm mb-1">Art & Culture</p>
+                        <p class="font-sans text-gray-300">專車前往仙臺（途經美術館或選配行程）。</p>
+                    </div>
+
+                    <div class="relative">
+                        <span class="absolute -left-[41px] top-1 h-5 w-5 rounded-full bg-gold border-4 border-navy"></span>
+                        <h4 class="text-xl font-bold">Day 3 & 4: The City</h4>
+                        <p class="text-gray-400 text-sm mb-1">Stay: 仙台威斯汀 (Sendai)</p>
+                        <p class="font-sans text-gray-300">城市景觀、購物、米其林餐飲。</p>
+                    </div>
+
+                    <div class="relative">
+                        <span class="absolute -left-[41px] top-1 h-5 w-5 rounded-full bg-gray-500 border-4 border-navy"></span>
+                        <h4 class="text-xl font-bold">Day 5: Departure</h4>
+                        <p class="font-sans text-gray-300">輕鬆前往機場，滿載而歸。</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Risk Management Box -->
+            <div class="md:col-span-1">
+                <div class="bg-gradient-to-br from-gray-800 to-black p-8 border border-gold/30 rounded-sm h-full">
+                    <div class="text-gold text-3xl mb-4">★</div>
+                    <h3 class="text-lg font-bold text-white mb-4 uppercase tracking-wider">Professional Insight</h3>
+                    <h4 class="text-gold font-bold mb-2">為何最後住仙台？</h4>
+                    <p class="text-gray-400 text-sm font-sans leading-relaxed mb-4">
+                        <strong class="text-white block mb-1">Winter Safety Strategy</strong>
+                        1月份藏王山區偶有暴風雪，可能導致道路封閉。
+                    </p>
+                    <p class="text-gray-400 text-sm font-sans leading-relaxed">
+                        我們安排行程後段入住平地市區，規避最後一天從山上趕往機場的風險。此安排體現了對您安全的最高重視。
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12 text-center border-t border-gray-800">
+        <p class="text-gold tracking-widest uppercase text-xs mb-2">Exclusive Private Journey</p>
+        <p class="font-serif text-lg">2026 Winter Collection</p>
+        <div class="mt-8">
+            <button onclick="window.print()" class="px-6 py-2 border border-gold text-gold hover:bg-gold hover:text-navy transition duration-300 text-sm tracking-wider uppercase">
+                Save as PDF
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        // Simple Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
