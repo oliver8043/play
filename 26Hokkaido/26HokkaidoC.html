@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 北海道冬日家族旅行</title>
+    <title>2026 北海道冬日家族旅行 </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -52,8 +52,8 @@
             white-space: nowrap;
         }
         
-        /* Unified Hotel Tag */
-        .hotel-tag { 
+        /* Unified Hotel Tag - Updated to be <a> friendly */
+        a.hotel-tag, div.hotel-tag { 
             display: block; 
             margin-top: 12px; 
             padding: 10px 8px; 
@@ -63,32 +63,24 @@
             border: 1px solid; 
             background-color: #f8fafc;
             position: relative;
+            text-decoration: none; /* remove underline from link */
+            transition: transform 0.1s, box-shadow 0.1s;
         }
+        
+        /* Hover effect for clickable hotels */
+        a.hotel-tag:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            filter: brightness(0.98);
+        }
+
         .hotel-g1 { background-color: #f0f9ff; color: #0284c7; border-color: #bae6fd; }
         .hotel-g2 { background-color: #faf5ff; color: #9333ea; border-color: #e9d5ff; }
         .hotel-common { background-color: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
         
-        .hotel-name { font-weight: 700; font-size: 0.9rem; display: block; margin-bottom: 2px; line-height: 1.3; }
+        .hotel-name { font-weight: 700; font-size: 0.9rem; display: flex; justify-content: center; align-items: center; gap: 4px; margin-bottom: 2px; line-height: 1.3; }
         .hotel-sub { font-size: 0.7rem; opacity: 0.85; display: block; line-height: 1.2; }
         
-        /* Map Link Button */
-        .map-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: #ef4444; /* Red color for pin */
-            background: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            border: 1px solid #fecaca;
-            margin-left: 6px;
-            font-size: 0.8rem;
-            text-decoration: none;
-            transition: transform 0.2s;
-        }
-        .map-link:hover { transform: scale(1.1); background: #fef2f2; }
-
         /* Unified Meal Tag */
         .meal-row { display: flex; align-items: baseline; font-size: 0.85rem; margin-top: 6px; color: #475569; }
         .meal-label { font-weight: 700; color: #d97706; margin-right: 6px; flex-shrink: 0; font-size: 0.75rem; background: #fff7ed; padding: 0 4px; border-radius: 2px; }
@@ -143,15 +135,15 @@
     <header class="text-center mb-6 pt-2">
         <h1 class="text-2xl font-extrabold text-slate-800 mb-2 tracking-tight">2026 北海道冬日家族旅行</h1>
         <div class="flex justify-center gap-3 text-xs font-bold mt-3">
-            <span class="px-3 py-1 bg-sky-100 text-sky-800 rounded-full border border-sky-200 shadow-sm">
-                <i class="fas fa-car mr-1"></i> 團1 (自駕)
+             <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full border border-purple-200 shadow-sm">
+                <i class="fas fa-shuttle-van mr-1"></i> 團1 (包車)
             </span>
-            <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full border border-purple-200 shadow-sm">
-                <i class="fas fa-shuttle-van mr-1"></i> 團2 (包車)
+            <span class="px-3 py-1 bg-sky-100 text-sky-800 rounded-full border border-sky-200 shadow-sm">
+                <i class="fas fa-car mr-1"></i> 團2 (自駕)
             </span>
         </div>
         <div class="text-[10px] text-gray-400 mt-2">
-             版本 V2.0 • 含地圖連結與合併餐食
+             版本 V2.5 • Day 2 版面簡化 • Day 3 午餐合併
         </div>
     </header>
 
@@ -196,7 +188,7 @@
                     <div class="absolute -left-[13px] w-3 h-3 bg-slate-300 rounded-full border-2 border-white"></div>
                     <span class="time-badge">16:30</span>
                     <span>前往支笏湖</span>
-                    <span class="travel-time ml-2">約 50 分</span>
+                    <span class="travel-time ml-2">機場 ➔ 支笏湖約 50 分</span>
                 </li>
                 <li class="meal-row relative">
                     <div class="absolute -left-[13px] w-3 h-3 bg-slate-200 rounded-full border-2 border-white"></div>
@@ -211,20 +203,17 @@
 
             <!-- Common Hotel -->
             <div class="mt-8 pt-4 border-t border-gray-100">
-                <div class="hotel-tag hotel-common">
+                <a href="https://www.google.com/maps/search/?api=1&query=Lake+Shikotsu+Tsuruga+Bessou+AO+no+ZA" target="_blank" class="hotel-tag hotel-common" title="開啟 Google Maps">
                     <span class="hotel-name">
                         <i class="fas fa-bed mr-1"></i> 支笏湖 碧之座
-                        <a href="https://www.google.com/maps/search/?api=1&query=Lake+Shikotsu+Tsuruga+Bessou+AO+no+ZA" target="_blank" class="map-link" title="開啟 Google Maps">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </a>
                     </span>
                     <span class="hotel-sub">Lake Shikotsu Tsuruga Bessou AO no ZA</span>
-                </div>
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- Day 2 (Merged Dinner) -->
+    <!-- Day 2 (Unified Timeline) -->
     <div class="card">
         <div class="day-header bg-slate-800 text-white flex justify-between items-center" onclick="toggleCard('d2')">
             <div class="day-title text-sm sm:text-lg">
@@ -240,82 +229,60 @@
                 <i id="icon-d2" class="fas fa-chevron-up rotate-180 ml-2"></i>
             </div>
         </div>
-        <div id="d2" class="p-0">
-            <!-- Grid 1: Activities -->
-            <div class="comparison-grid border-none">
-                <!-- Group 1 -->
-                <div class="group-col">
-                    <div class="group-header header-g1">團 1 (自駕)</div>
-                    <div class="group-body">
-                        <ul class="space-y-3">
-                            <li class="meal-row">
-                                <span class="meal-label">早餐</span> 飯店早餐
-                            </li>
-                            <li><span class="time-badge">上午</span> 退房/移動</li>
-                            <li>
-                                <span class="time-badge">交通</span> 往洞爺湖
-                                <span class="travel-time block w-fit mt-1">約 1.5 ~ 2 hr</span>
-                            </li>
-                            <li class="meal-row">
-                                <span class="meal-label">午餐</span> 未定
-                            </li>
-                            <li>
-                                <span class="text-xs text-gray-500">飯店間車程約 20 分鐘</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Group 2 -->
-                <div class="group-col">
-                    <div class="group-header header-g2">團 2 (包車)</div>
-                    <div class="group-body">
-                        <ul class="space-y-3">
-                            <li class="meal-row">
-                                <span class="meal-label">早餐</span> 飯店早餐
-                            </li>
-                            <li><span class="time-badge">上午</span> 退房/移動</li>
-                            <li>
-                                <span class="time-badge">交通</span> 往洞爺湖
-                                <span class="travel-time block w-fit mt-1">約 1.5 ~ 2 hr</span>
-                            </li>
-                            <li class="meal-row">
-                                <span class="meal-label">午餐</span> 未定
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Merged Dinner Row -->
+        <div id="d2" class="p-4 sm:p-6">
+            <!-- Unified Activity List -->
+            <ul class="space-y-4 text-sm sm:text-base pl-2 border-l-2 border-slate-200 ml-2">
+                <li class="meal-row relative">
+                    <div class="absolute -left-[13px] w-3 h-3 bg-slate-200 rounded-full border-2 border-white"></div>
+                    <span class="meal-label ml-6">早餐</span> 飯店內早餐
+                </li>
+                <li class="flex items-center relative">
+                    <div class="absolute -left-[13px] w-3 h-3 bg-slate-300 rounded-full border-2 border-white"></div>
+                    <span class="time-badge">上午</span>
+                    <span>退房 / 移動往洞爺湖</span>
+                </li>
+                <li class="flex items-center relative">
+                    <div class="absolute -left-[13px] w-3 h-3 bg-slate-300 rounded-full border-2 border-white"></div>
+                    <span class="time-badge">交通</span> 支芴湖 ➔ 洞爺湖
+                    <span class="travel-time ml-2">小樽➔札幌 約 1.5 ~ 2 hr</span>
+                </li>
+                <li class="meal-row relative">
+                    <div class="absolute -left-[13px] w-3 h-3 bg-slate-200 rounded-full border-2 border-white"></div>
+                    <span class="meal-label ml-6">午餐</span> 未定
+                </li>
+                <li class="relative">
+                    <div class="absolute -left-[13px] w-3 h-3 bg-slate-300 rounded-full border-2 border-white"></div>
+                    <span class="time-badge">下午</span> 飯店 Check-in / 湖畔散策
+                </li>
+                 <li class="relative text-xs text-gray-500 pl-16 -mt-2 mb-2">
+                    * 飯店間移動約 20 分鐘
+                </li>
+                <!-- Merged Dinner Row -->
             <div class="shared-dinner-row">
                 <i class="fas fa-utensils"></i> 晚餐：Gilligan's Island (共餐)
             </div>
+            </ul>
 
-            <!-- Grid 2: Hotels -->
-            <div class="comparison-grid border-none">
-                <!-- Group 1 Hotel -->
-                <div class="group-col pt-2">
-                    <div class="hotel-tag hotel-g1 h-full flex flex-col justify-center">
-                        <span class="hotel-name">
-                            WE Hotel Toya
-                            <a href="https://www.google.com/maps/search/?api=1&query=WE+Hotel+Toya" target="_blank" class="map-link" title="開啟 Google Maps">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </a>
-                        </span>
-                        <span class="hotel-sub">隈研吾設計酒店</span>
-                    </div>
-                </div>
-                <!-- Group 2 Hotel -->
-                <div class="group-col pt-2">
-                    <div class="hotel-tag hotel-g2 h-full flex flex-col justify-center">
+            <!-- Separate Hotels in Grid -->
+            <div class="mt-8 pt-4 border-t border-gray-100">
+                <div class="grid grid-cols-2 gap-3">
+                    <!-- Group 2 Hotel (Left) -->
+                    <a href="https://www.google.com/maps/search/?api=1&query=The+Windsor+Hotel+Toya+Resort+Spa" target="_blank" class="hotel-tag hotel-g2 h-full flex flex-col justify-center m-0" title="開啟 Google Maps">
+                        <div class="text-[10px] text-purple-600 mb-1 font-bold tracking-wider">團 1 入住</div>
                         <span class="hotel-name">
                             Windsor Hotel Toya
-                            <a href="https://www.google.com/maps/search/?api=1&query=The+Windsor+Hotel+Toya+Resort+Spa" target="_blank" class="map-link" title="開啟 Google Maps">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </a>
                         </span>
                         <span class="hotel-sub">Vignette Collection</span>
-                    </div>
+                    </a>
+                    
+                    <!-- Group 1 Hotel (Right) -->
+                    <a href="https://www.google.com/maps/search/?api=1&query=WE+Hotel+Toya" target="_blank" class="hotel-tag hotel-g1 h-full flex flex-col justify-center m-0" title="開啟 Google Maps">
+                        <div class="text-[10px] text-sky-600 mb-1 font-bold tracking-wider">團 2 入住</div>
+                        <span class="hotel-name">
+                            WE Hotel Toya
+                        </span>
+                        <span class="hotel-sub">隈研吾設計酒店</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -326,7 +293,7 @@
         <div class="day-header bg-slate-800 text-white flex justify-between items-center" onclick="toggleCard('d3')">
             <div class="day-title text-sm sm:text-lg">
                 <span class="bg-slate-600 px-2 py-0.5 rounded mr-1 text-xs tracking-wider">Day 3</span>
-                2/15 (日) · 札幌/小樽
+                2/15 (日) · 洞爺湖 ➔ 1 小樽 / 2 札幌
             </div>
             <div class="weather-container">
                 <span class="info-badge badge-dark hidden sm:flex">
@@ -339,16 +306,49 @@
         </div>
         <div id="d3" class="p-0">
             <div class="comparison-grid">
-                <!-- Group 1 -->
+                 <!-- Group 2 (Left) -->
                 <div class="group-col">
-                    <div class="group-header header-g1">團 1 (自駕)</div>
+                    <div class="group-header header-g2">團 1 (包車)</div>
                     <div class="group-body flex flex-col">
                         <ul class="space-y-3">
+                            <li class="meal-row">
+                                <span class="meal-label">早餐</span> 飯店早餐
+                            </li>
+                            <li class="meal-row">
+                                <span class="meal-label">午餐</span> HLAHAL 湯咖哩 (共餐)
+                            </li>
+                            <li class="meal-row">
+                                <span class="meal-label">點心</span> Lake Hill Farm
+                            </li>
+                            <li>
+                                <span class="time-badge">交通</span> 前往小樽
+                                <span class="travel-time">洞爺➔小樽 約 2.5 hr</span>
+                            </li>
+                            <li class="meal-row">
+                                <span class="meal-label">晚餐</span> 味の栄六
+                            </li>
+                        </ul>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Neu+Schloss+Otaru" target="_blank" class="hotel-tag hotel-g2 mt-auto" title="開啟 Google Maps">
+                            <span class="hotel-name">
+                                Neu Schloss Otaru
+                            </span>
+                            <span class="hotel-sub">全客室露天風呂</span>
+                        </a>
+                    </div>
+                </div>
+                 <!-- Group 1 (Right) -->
+                <div class="group-col">
+                    <div class="group-header header-g1">團 2 (自駕)</div>
+                    <div class="group-body flex flex-col">
+                        <ul class="space-y-3">
+                            <li class="meal-row">
+                                <span class="meal-label">早餐</span> 飯店早餐
+                            </li>
                             <li>
                                 <span class="time-badge">上午</span> 洞爺湖周邊
                             </li>
                             <li class="meal-row">
-                                <span class="meal-label">午餐</span> 自理
+                                <span class="meal-label">午餐</span> HLAHAL 湯咖哩 (共餐)
                             </li>
                             <li>
                                 <span class="time-badge">下午</span> <strong>前往札幌</strong>
@@ -359,48 +359,12 @@
                                 <span class="meal-label">晚餐</span> 自理
                             </li>
                         </ul>
-                        <div class="hotel-tag hotel-g1 mt-auto">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Onsen+Ryokan+Yuen+Sapporo" target="_blank" class="hotel-tag hotel-g1 mt-auto" title="開啟 Google Maps">
                             <span class="hotel-name">
                                 由緣札幌
-                                <a href="https://www.google.com/maps/search/?api=1&query=Onsen+Ryokan+Yuen+Sapporo" target="_blank" class="map-link" title="開啟 Google Maps">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </a>
                             </span>
                             <span class="hotel-sub">Onsen Ryokan Yuen</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Group 2 -->
-                <div class="group-col">
-                    <div class="group-header header-g2">團 2 (包車)</div>
-                    <div class="group-body flex flex-col">
-                        <ul class="space-y-3">
-                            <li class="meal-row">
-                                <span class="meal-label">早餐</span> 飯店早餐
-                            </li>
-                            <li class="meal-row">
-                                <span class="meal-label">午餐</span> HLAHAL 湯咖哩
-                            </li>
-                            <li class="meal-row">
-                                <span class="meal-label">點心</span> Lake Hill Farm
-                            </li>
-                            <li>
-                                <span class="time-badge">交通</span> 前往小樽
-                                <span class="travel-time">約 2.5 hr</span>
-                            </li>
-                            <li class="meal-row">
-                                <span class="meal-label">晚餐</span> 味の栄六
-                            </li>
-                        </ul>
-                        <div class="hotel-tag hotel-g2 mt-auto">
-                            <span class="hotel-name">
-                                Neu Schloss Otaru
-                                <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Neu+Schloss+Otaru" target="_blank" class="map-link" title="開啟 Google Maps">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </a>
-                            </span>
-                            <span class="hotel-sub">全客室露天風呂</span>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -412,7 +376,7 @@
         <div class="day-header bg-slate-800 text-white flex justify-between items-center" onclick="toggleCard('d4')">
             <div class="day-title text-sm sm:text-lg">
                 <span class="bg-slate-600 px-2 py-0.5 rounded mr-1 text-xs tracking-wider">Day 4</span>
-                2/16 (一) · 札幌/小樽
+                2/16 (一) (除夕) · 小樽 ➔ 札幌
             </div>
             <div class="weather-container">
                 <span class="info-badge badge-dark hidden sm:flex">
@@ -424,11 +388,29 @@
             </div>
         </div>
         <div id="d4" class="p-0">
-            <!-- Grid 1: Activities -->
+            <!-- Grid 1: Activities (Swapped) -->
             <div class="comparison-grid border-none">
-                <!-- Group 1 -->
+                 <!-- Group 2 (Left) -->
                 <div class="group-col">
-                    <div class="group-header header-g1">團 1 (自駕)</div>
+                    <div class="group-header header-g2">團 1 (包車)</div>
+                    <div class="group-body">
+                        <ul class="space-y-3">
+                            <li>
+                                <span class="time-badge">上午</span> 小樽市區漫遊
+                                <span class="travel-time block w-fit mt-1">小樽➔札幌 約50分</span>
+                            </li>
+                            <li class="meal-row">
+                                <span class="meal-label">午餐</span> 自理
+                            </li>
+                            <li>
+                                <span class="time-badge">下午</span> <strong>札幌市區/大通公園雪祭</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                 <!-- Group 1 (Right) -->
+                <div class="group-col">
+                    <div class="group-header header-g1">團 2 (自駕)</div>
                     <div class="group-body">
                         <ul class="space-y-3">
                             <li>
@@ -443,22 +425,10 @@
                             </li>
                             <li>
                                 <span class="time-badge">下午</span> 返回札幌
+                                <span class="travel-time block w-fit mt-1">水族館➔札幌 約50分</span>
                             </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Group 2 -->
-                <div class="group-col">
-                    <div class="group-header header-g2">團 2 (包車)</div>
-                    <div class="group-body">
-                        <ul class="space-y-3">
-                            <li><span class="time-badge">上午</span> 小樽市區漫遊</li>
                             <li>
-                                <span class="time-badge">下午</span> <strong>札幌大通公園雪祭</strong>
-                                <span class="travel-time block w-fit mt-1">小樽➔札幌 約50分</span>
-                            </li>
-                            <li class="meal-row">
-                                <span class="meal-label">午餐</span> 自理
+                                <span class="time-badge">下午</span> <strong>札幌市區/大通公園雪祭</strong>
                             </li>
                         </ul>
                     </div>
@@ -470,30 +440,24 @@
                 <i class="fas fa-utensils"></i> 晚餐：日式涮涮鍋 (共餐)
             </div>
 
-            <!-- Grid 2: Hotels -->
+            <!-- Grid 2: Hotels (Swapped) -->
             <div class="comparison-grid border-none">
-                <!-- Group 1 Hotel -->
+                <!-- Group 2 Hotel (Left) -->
                 <div class="group-col pt-2">
-                    <div class="hotel-tag hotel-g1 h-full flex flex-col justify-center">
-                        <span class="hotel-name">
-                            由緣札幌 (續住)
-                            <a href="https://www.google.com/maps/search/?api=1&query=Onsen+Ryokan+Yuen+Sapporo" target="_blank" class="map-link" title="開啟 Google Maps">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </a>
-                        </span>
-                    </div>
-                </div>
-                <!-- Group 2 Hotel -->
-                <div class="group-col pt-2">
-                    <div class="hotel-tag hotel-g2 h-full flex flex-col justify-center">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Fairfield+by+Marriott+Sapporo" target="_blank" class="hotel-tag hotel-g2 h-full flex flex-col justify-center" title="開啟 Google Maps">
                         <span class="hotel-name">
                             Marriott Sapporo
-                            <a href="https://www.google.com/maps/search/?api=1&query=Fairfield+by+Marriott+Sapporo" target="_blank" class="map-link" title="開啟 Google Maps">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </a>
                         </span>
                         <span class="hotel-sub">萬楓酒店</span>
-                    </div>
+                    </a>
+                </div>
+                 <!-- Group 1 Hotel (Right) -->
+                <div class="group-col pt-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Onsen+Ryokan+Yuen+Sapporo" target="_blank" class="hotel-tag hotel-g1 h-full flex flex-col justify-center" title="開啟 Google Maps">
+                        <span class="hotel-name">
+                            由緣札幌 (續住)
+                        </span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -504,7 +468,7 @@
         <div class="day-header bg-slate-800 text-white flex justify-between items-center" onclick="toggleCard('d5')">
             <div class="day-title text-sm sm:text-lg">
                 <span class="bg-slate-600 px-2 py-0.5 rounded mr-1 text-xs tracking-wider">Day 5</span>
-                2/17 (二) · 返台/購物
+                2/17 (二) (初一) · 1 札幌 / 2 返台
             </div>
             <div class="weather-container">
                 <span class="info-badge badge-dark hidden sm:flex">
@@ -517,32 +481,9 @@
         </div>
         <div id="d5" class="p-0">
             <div class="comparison-grid">
-                <!-- Group 1 -->
-                <div class="group-col bg-sky-50/30">
-                    <div class="group-header header-g1">團 1 (自駕)</div>
-                    <div class="group-body">
-                        <ul class="space-y-3">
-                            <li>
-                                <span class="time-badge">上午</span> 前往機場
-                                <span class="travel-time">約 60 分</span>
-                            </li>
-                            <li><span class="time-badge">12:00</span> 機場還車</li>
-                            <li class="meal-row">
-                                <span class="meal-label">午餐</span> 拉麵道場
-                            </li>
-                            <li class="bg-white p-2 rounded border border-purple-100 mt-2 shadow-sm">
-                                <div class="font-bold text-purple-900 text-xs">
-                                    <i class="fas fa-plane-departure mr-1"></i> BR115 返台
-                                </div>
-                                <div class="text-[11px] text-purple-800 mt-1">15:20 CTS ➔ 19:00 TPE</div>
-                            </li>
-                        </ul>
-                        <div class="text-center text-xs text-gray-400 mt-6 mb-2">-- 團1 行程結束 --</div>
-                    </div>
-                </div>
-                <!-- Group 2 -->
+                <!-- Group 2 (Left) -->
                 <div class="group-col">
-                    <div class="group-header header-g2">團 2 (包車)</div>
+                    <div class="group-header header-g2">團 1 (包車)</div>
                     <div class="group-body flex flex-col">
                         <ul class="space-y-3">
                             <li class="meal-row">
@@ -556,15 +497,35 @@
                                 <span class="meal-label">晚餐</span> 日式燒肉
                             </li>
                         </ul>
-                        <div class="hotel-tag hotel-g2 mt-auto">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Fairfield+by+Marriott+Sapporo" target="_blank" class="hotel-tag hotel-g2 mt-auto" title="開啟 Google Maps">
                             <span class="hotel-name">
                                 Marriott Sapporo
-                                <a href="https://www.google.com/maps/search/?api=1&query=Fairfield+by+Marriott+Sapporo" target="_blank" class="map-link" title="開啟 Google Maps">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </a>
                             </span>
                             <span class="hotel-sub">(續住)</span>
-                        </div>
+                        </a>
+                    </div>
+                </div>
+                 <!-- Group 1 (Right) -->
+                <div class="group-col bg-sky-50/30">
+                    <div class="group-header header-g1">團 2 (自駕)</div>
+                    <div class="group-body">
+                        <ul class="space-y-3">
+                            <li>
+                                <span class="time-badge">上午</span> 前往機場
+                                <span class="travel-time">約 60 分</span>
+                            </li>
+                            <li><span class="time-badge">12:00</span> 加油，機場還車</li>
+                            <li class="meal-row">
+                                <span class="meal-label">午餐</span> 機場午餐
+                            </li>
+                            <li class="bg-white p-2 rounded border border-purple-100 mt-2 shadow-sm">
+                                <div class="font-bold text-purple-900 text-xs">
+                                    <i class="fas fa-plane-departure mr-1"></i> BR115 返台
+                                </div>
+                                <div class="text-[11px] text-purple-800 mt-1">15:20 CTS ➔ 19:00 TPE</div>
+                            </li>
+                        </ul>
+                        <div class="text-center text-xs text-gray-400 mt-6 mb-2">-- 團2 行程結束 --</div>
                     </div>
                 </div>
             </div>
@@ -576,7 +537,7 @@
         <div class="day-header bg-white text-purple-900 border-b border-gray-100 flex justify-between items-center" onclick="toggleCard('d6')">
             <div class="day-title text-sm sm:text-lg">
                 <span class="bg-purple-100 text-purple-800 px-2 py-0.5 rounded mr-1 text-xs tracking-wider">Day 6</span>
-                2/18 (三) · 團2返台
+                2/18 (三) · 團1返台
             </div>
             <div class="weather-container">
                 <span class="info-badge badge-light hidden sm:flex">
@@ -589,11 +550,9 @@
         </div>
         <div id="d6" class="p-0">
             <div class="comparison-grid">
-                 <div class="group-col items-center justify-center bg-gray-50 text-gray-400 text-xs">
-                    團 1 已溫暖的家
-                 </div>
+                 <!-- Group 2 (Left - Now on left side per request) -->
                  <div class="group-col">
-                    <div class="group-header header-g2">團 2 (包車)</div>
+                    <div class="group-header header-g2">團 1 (包車)</div>
                     <div class="group-body">
                         <ul class="space-y-3">
                             <li><span class="time-badge">上午</span> 最後採買</li>
@@ -613,6 +572,10 @@
                         </ul>
                     </div>
                 </div>
+                 <!-- Group 1 (Right - Placeholder) -->
+                 <div class="group-col items-center justify-center bg-gray-50 text-gray-400 text-xs">
+                    團 2 溫暖的家
+                 </div>
             </div>
         </div>
     </div>
